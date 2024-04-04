@@ -1,6 +1,7 @@
-import { Arg, Ctx, FieldResolver, Query, Resolver, ResolverInterface, Root } from "type-graphql";
+import { Arg, Ctx, FieldResolver, Int, Query, Resolver, ResolverInterface, Root } from "type-graphql";
 import Character, { GenderEnum } from "../schema/character.schema";
 import StarWarsService from "../services/star-wars.service";
+import { Authorized } from "../decorators/authorized";
 
 @Resolver((type) => Character)
 class CharacterResolver implements ResolverInterface<Character> {
@@ -18,6 +19,14 @@ class CharacterResolver implements ResolverInterface<Character> {
     async films(@Root() character: Character, @Ctx() context) {
         return await context.dataSources.starWarsService.getFilmsByIds(character.filmsIds);
     }
+
+    @Authorized()
+    @FieldResolver((type) => Int)
+    salary() {
+        return Math.floor(Math.random() * 1000000);
+    }
 }
+
+
 
 export default CharacterResolver;

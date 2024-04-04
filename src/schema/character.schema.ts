@@ -1,4 +1,4 @@
-import { Field, ObjectType, registerEnumType } from "type-graphql";
+import { Field, Int, ObjectType, registerEnumType } from "type-graphql";
 import Film from "./film.schema";
 
 export enum GenderEnum {
@@ -24,6 +24,7 @@ class Character {
     films: Film[];
 
     filmsIds: number[];
+
 }
 
 export default Character;
