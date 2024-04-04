@@ -1,22 +1,19 @@
-import { Query, Resolver } from "type-graphql";
+import { Arg, Query, Resolver } from "type-graphql";
 import Character, { GenderEnum } from "../schema/character.schema";
+import StarWarsService from "../services/star-wars.service";
 
 @Resolver()
 class CharacterResolver {
     @Query(() => [Character])
     characters() {
-        return [
-            {
-                name: "Luke Skywalker",
-                height: "172",
-                gender: GenderEnum.MALE,
-            },
-            {
-                name: "Darth Vader",
-                height: "202",
-                gender: GenderEnum.MALE,
-            },
-        ];
+        const starWarsService = new StarWarsService();
+        return starWarsService.getCharacters();
+    }
+
+    @Query(() => [Character])
+    character(@Arg("id") id: number) {
+        const starWarsService = new StarWarsService();
+        return starWarsService.getCharacter(id);
     }
 }
 
