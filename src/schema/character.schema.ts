@@ -1,4 +1,5 @@
 import { Field, ObjectType, registerEnumType } from "type-graphql";
+import Film from "./film.schema";
 
 export enum GenderEnum {
     FEMALE = "female",
@@ -18,6 +19,11 @@ class Character {
 
     @Field({ nullable: true })
     gender?: GenderEnum;
+
+    @Field(() => [Film], {nullable: true})
+    films: Film[];
+
+    filmsIds: number[];
 }
 
 export default Character;

@@ -11,14 +11,18 @@ class StarWarsService {
             director: film.director,
             producer: film.producer,
             releaseDate: film.release_date,
+            charactersIds: film.characters.map((url: string) => url.split("/").slice(-2)[0]),
+            characters: [],
         }
     }
 
-    private characterMapper(character: any) {
+    private characterMapper(character: any): Character {
         return {
             name: character.name,
             height: character.height,
             gender: character.gender,
+            filmsIds: character.films.map((url: string) => url.split("/").slice(-2)[0]),
+            films: [],
         }
     }
 
@@ -40,6 +44,16 @@ class StarWarsService {
     async getFilm(id: number) {
         const result = (await axios.get(`${this.baseUrl}/films/${id}`)).data;
         return this.filmMapper(result);
+    }
+
+    async getFilmsByIds(ids: number[]) {
+        const films = await Promise.all(ids.map((id) => this.getFilm(id)))
+        return films
+    }
+
+    async getCharactersByIds(ids: number[]) {
+        const characters = await Promise.all(ids.map((id) => this.getCharacter(id)))
+        return characters
     }
 }
 
