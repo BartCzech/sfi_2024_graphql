@@ -10,11 +10,11 @@ class StarWarsService {
             title: film.title,
             director: film.director,
             producer: film.producer,
-            releaseDate: film.releaseDate,
+            releaseDate: film.release_date,
         }
     }
 
-    private characterMapper(character: any): Character {
+    private characterMapper(character: any) {
         return {
             name: character.name,
             height: character.height,
@@ -33,12 +33,12 @@ class StarWarsService {
     }
 
     async getCharacter(id: number) {
-        const result = (await axios.get(`${this.baseUrl}/people/${id}`)).data.results;
+        const result = (await axios.get(`${this.baseUrl}/people/${id}`)).data;
         return this.characterMapper(result);
     }
 
     async getFilm(id: number) {
-        const result = (await axios.get(`${this.baseUrl}/films/${id}`)).data.results;
+        const result = (await axios.get(`${this.baseUrl}/films/${id}`)).data;
         return this.filmMapper(result);
     }
 }

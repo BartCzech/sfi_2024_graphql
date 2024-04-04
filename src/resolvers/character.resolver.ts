@@ -10,7 +10,7 @@ class CharacterResolver {
         return starWarsService.getCharacters();
     }
 
-    @Query(() => [Character])
+    @Query(() => Character)
     character(@Arg("id") id: number) {
         const starWarsService = new StarWarsService();
         return starWarsService.getCharacter(id);

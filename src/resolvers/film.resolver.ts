@@ -10,7 +10,7 @@ class FilmResolver {
         return starWarsService.getFilms()
     }
 
-    @Query(() => [Film])
+    @Query(() => Film)
     film(@Arg("id") id: number) {
         const starWarsService = new StarWarsService();
         return starWarsService.getFilm(id)
